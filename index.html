@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>金種計算機 V4</title>
+    <title>金種計算機 V4 (修正済み)</title>
     <style>
         body {
             font-family: sans-serif;
@@ -135,7 +135,8 @@
     </div>
 
     <script>
-        const denominations =;
+        // ここが抜けていました: 金種リストを定義し直します
+        const denominations = [10000, 5000, 2000, 1000, 500, 100, 50, 10, 5, 1];
 
         function calculate() {
             let totalAmount = 0;
@@ -144,30 +145,24 @@
                 const inputElement = document.getElementById(`c${value}`);
                 const subtotalElement = document.getElementById(`subtotal-${value}`);
                 
-                // 入力値が空欄または不正な場合は0とみなす
                 const count = parseInt(inputElement.value, 10) || 0;
                 const subtotal = count * value;
                 
-                // 小計が0の場合は空欄にし、それ以外は金額表示
                 subtotalElement.textContent = subtotal === 0 ? "" : subtotal.toLocaleString() + " 円";
                 
                 totalAmount += subtotal;
             });
             
-            // 合計金額を表示
             document.getElementById('total').textContent = totalAmount.toLocaleString() + " 円";
         }
 
         function clearInputs() {
             denominations.forEach(value => {
-                // valueを空欄に設定
                 document.getElementById(`c${value}`).value = ''; 
             });
-            // クリア後、再計算を実行して表示をリセット
             calculate();
         }
 
-        // ページ読み込み時に計算を実行（合計欄を初期化するため）
         calculate();
     </script>
 </body>
